@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>891</width>
+    <width>1031</width>
     <height>545</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>19</x>
      <y>19</y>
-     <width>851</width>
+     <width>991</width>
      <height>501</height>
     </rect>
    </property>
@@ -126,7 +126,7 @@
      <rect>
       <x>460</x>
       <y>40</y>
-      <width>371</width>
+      <width>511</width>
       <height>381</height>
      </rect>
     </property>
@@ -301,7 +301,7 @@
        <x>20</x>
        <y>110</y>
        <width>331</width>
-       <height>18</height>
+       <height>36</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -390,12 +390,17 @@
        <x>20</x>
        <y>170</y>
        <width>331</width>
-       <height>18</height>
+       <height>36</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QRadioButton" name="radio30">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -403,6 +408,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio31">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -410,6 +420,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio32">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -417,6 +432,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio33">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -424,6 +444,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio34">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -431,6 +456,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio35">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -438,6 +468,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio36">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -445,6 +480,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio37">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -452,6 +492,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio38">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -459,6 +504,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio39">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -466,6 +516,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio310">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -485,6 +540,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
        <widget class="QRadioButton" name="radio40">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -492,6 +552,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio41">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -499,6 +564,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio42">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -506,6 +576,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio43">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -513,6 +588,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio44">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -520,6 +600,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio45">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -527,6 +612,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio46">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -534,6 +624,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio47">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -541,6 +636,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio48">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -548,6 +648,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio49">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -555,6 +660,11 @@
       </item>
       <item>
        <widget class="QRadioButton" name="radio410">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -567,85 +677,140 @@
       <rect>
        <x>20</x>
        <y>270</y>
-       <width>331</width>
-       <height>18</height>
+       <width>477</width>
+       <height>27</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
        <widget class="QRadioButton" name="radio50">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>0</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio51">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>1</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio52">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>2</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio53">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>3</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio54">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>4</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio55">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>5</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio56">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>6</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio57">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>7</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio58">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>8</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio59">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>9</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio510">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>10</string>
         </property>
        </widget>
       </item>
@@ -656,85 +821,140 @@
       <rect>
        <x>20</x>
        <y>320</y>
-       <width>331</width>
-       <height>18</height>
+       <width>477</width>
+       <height>27</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_7">
       <item>
        <widget class="QRadioButton" name="radio60">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>0</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio61">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>1</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio62">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>2</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio63">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>3</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio64">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>4</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio65">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>5</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio66">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>6</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio67">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>7</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio68">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>8</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio69">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>9</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="radio610">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string/>
+         <string>10</string>
         </property>
        </widget>
       </item>
@@ -758,7 +978,7 @@
       <string>6</string>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
