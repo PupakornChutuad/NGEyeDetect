@@ -2,7 +2,7 @@
 import sys
 import os
 import time
-import win32api
+
 
 from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QMessageBox
 from PySide2.QtCore import QFile, QThreadPool
@@ -33,8 +33,7 @@ class MainWin(QWidget):
         self.Coundown_msg = Coundown_msg(self.countdown_update)
         self.Countup_msg = Countup_msg(self.countup_Update)
 
-        self.messageBox: QMessageBox = QMessageBox()
-        self.messageBox.setText("Hello ")
+
     def load_ui(self):
         loader = QUiLoader()
         path = os.path.join(os.path.dirname(__file__), 'form2.ui')
@@ -56,13 +55,19 @@ class MainWin(QWidget):
         self.threadPool.start(Countd_Thread)
 
     def countdown_update(self):
+        msg = QMessageBox()
         self.Coundown_msg.countdown_time -= 1
         minss, secss = divmod(self.Coundown_msg.countdown_time, 60)
         hours, minss = divmod(minss, 60)
         x = '{:02d}:{:02d}:{:02d}'.format(hours, minss, secss)
         self.lbCountdowner.setText(x)
         if self.Coundown_msg.countdown_time==0:
-            win32api.MessageBox(None, 'hello', 'title')
+            self.Coundown_msg.CountDown_ObjectStart = False
+            msg.setText("กรุณากรอกข้อมูลให้ครบ")
+            msg.setWindowTitle("Warning")
+            msg.setIcon(QMessageBox.Warning)
+            msg.setStandardButtons(QMessageBox.Close)
+            y = msg.exec_()
 
     def countup_Update(self):
         self.Countup_msg.countup_time += 1
@@ -81,6 +86,16 @@ class MainWin(QWidget):
     def stopup(self):
         self.Countup_msg.countup_ObjectStart = False
 
+    # def closeEvent(self, event):
+    #
+    #     quit_msg = "Are you sure you want to exit the program?"
+    #     reply = QWidget.QMessageBox.question(self, 'Message',
+    #                                        quit_msg, QWidget.QMessageBox.Yes, QWidget.QMessageBox.No)
+    #
+    #     if reply == QWidget.QMessageBox.Yes:
+    #         event.accept()
+    #     else:
+    #         event.ignore()
 
 if __name__ == "__main__":
     app = QApplication([])
