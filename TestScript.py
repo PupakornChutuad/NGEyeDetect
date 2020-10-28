@@ -3,7 +3,7 @@ import sys
 import os
 
 
-from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QRadioButton,QSpinBox
+from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QMessageBox
 from PySide2.QtCore import QFile
 from PySide2.QtUiTools import QUiLoader
 
@@ -14,46 +14,16 @@ class TestScript(QWidget):
         self.load_ui()
 
         self.btnSubmitTest: QPushButton = self.findChild(QPushButton,"btnSubmitTest")
-        self.radio10: QRadioButton = self.findChild(QRadioButton,"radio10")
-        self.radio11: QRadioButton = self.findChild(QRadioButton, "radio11")
-        self.radio12: QRadioButton = self.findChild(QRadioButton, "radio12")
-        self.radio13: QRadioButton = self.findChild(QRadioButton, "radio13")
-        self.radio14: QRadioButton = self.findChild(QRadioButton, "radio14")
-        self.radio15: QRadioButton = self.findChild(QRadioButton, "radio15")
-        self.radio16: QRadioButton = self.findChild(QRadioButton, "radio16")
-        self.radio17: QRadioButton = self.findChild(QRadioButton, "radio17")
-        self.radio18: QRadioButton = self.findChild(QRadioButton, "radio18")
-        self.radio19: QRadioButton = self.findChild(QRadioButton, "radio19")
-        self.radio110: QRadioButton = self.findChild(QRadioButton, "radio110")
-        self.radio20: QRadioButton = self.findChild(QRadioButton, "radio20")
-        self.radio21: QRadioButton = self.findChild(QRadioButton, "radio21")
-        self.radio22: QRadioButton = self.findChild(QRadioButton, "radio22")
-        self.radio23: QRadioButton = self.findChild(QRadioButton, "radio23")
-        self.radio24: QRadioButton = self.findChild(QRadioButton, "radio24")
-        self.radio25: QRadioButton = self.findChild(QRadioButton, "radio25")
-        self.radio26: QRadioButton = self.findChild(QRadioButton, "radio26")
-        self.radio27: QRadioButton = self.findChild(QRadioButton, "radio27")
-        self.radio28: QRadioButton = self.findChild(QRadioButton, "radio28")
-        self.radio29: QRadioButton = self.findChild(QRadioButton, "radio29")
-        self.radio210: QRadioButton = self.findChild(QRadioButton, "radio210")
-        self.radio30: QRadioButton = self.findChild(QRadioButton, "radio30")
-        self.radio31: QRadioButton = self.findChild(QRadioButton, "radio31")
-        self.radio32: QRadioButton = self.findChild(QRadioButton, "radio32")
-        self.radio33: QRadioButton = self.findChild(QRadioButton, "radio33")
-        self.radio34: QRadioButton = self.findChild(QRadioButton, "radio34")
-        self.radio35: QRadioButton = self.findChild(QRadioButton, "radio35")
-        self.radio36: QRadioButton = self.findChild(QRadioButton, "radio36")
+        self.comboBox_1: QComboBox = self.findChild(QComboBox, "comboBox_1")
+        self.comboBox_2: QComboBox = self.findChild(QComboBox, "comboBox_2")
+        self.comboBox_3: QComboBox = self.findChild(QComboBox, "comboBox_3")
+        self.comboBox_4: QComboBox = self.findChild(QComboBox, "comboBox_4")
+        self.comboBox_5: QComboBox = self.findChild(QComboBox, "comboBox_5")
+        self.comboBox_6: QComboBox = self.findChild(QComboBox, "comboBox_6")
 
-        self.radio60: QRadioButton = self.findChild(QRadioButton, "radio30")
-        self.radio61: QRadioButton = self.findChild(QRadioButton, "radio31")
-        self.radio62: QRadioButton = self.findChild(QRadioButton, "radio32")
-        self.radio63: QRadioButton = self.findChild(QRadioButton, "radio33")
-        self.radio64: QRadioButton = self.findChild(QRadioButton, "radio34")
-        self.radio65: QRadioButton = self.findChild(QRadioButton, "radio35")
-        self.radio66: QRadioButton = self.findChild(QRadioButton, "radio36")
 
         self.btnSubmitTest.clicked.connect(self.radioanswer)
-        self.radio60.clicked.connect(self.radioanswer)
+
     def load_ui(self):
         loader = QUiLoader()
         path = os.path.join(os.path.dirname(__file__), "Test_form.ui")
@@ -64,9 +34,40 @@ class TestScript(QWidget):
 
 
     def radioanswer(self):
-        p = self.sender()
-
-        print(p)
+        msg = QMessageBox()
+        if self.comboBox_1.currentText() == "---------" \
+                or self.comboBox_2.currentText() == "---------" \
+                or self.comboBox_3.currentText() == "---------" \
+                or self.comboBox_4.currentText() == "---------" \
+                or self.comboBox_5.currentText() == "---------"\
+                or self.comboBox_6.currentText() == "---------":
+            msg.setText("กรุณากรอกข้อมูลให้ครบ")
+            msg.setWindowTitle("Warning")
+            msg.setIcon(QMessageBox.Warning)
+            msg.setStandardButtons(QMessageBox.Close)
+            x=msg.exec_()
+        else:
+            c1 = int(self.comboBox_1.currentText())
+            c2 = int(self.comboBox_2.currentText())
+            c3 = int(self.comboBox_3.currentText())
+            c4 = int(self.comboBox_4.currentText())
+            c5 = int(self.comboBox_5.currentText())
+            c6 = int(self.comboBox_6.currentText())
+            avg1 = (c1 + c2 + c3 + c4 + c5 + c6 ) / 6
+            if avg1 >= 5.1:
+                msg.setText("คุณได้คะแนน " + str(avg1) + " ตอนนี้คุณอยู่ในระดับที่มีปัญหามาก")
+                msg.setIcon(QMessageBox.Warning)
+            elif avg1 <= 5 and avg1 >= 1.1:
+                msg.setText("คุณได้คะแนน " + str(avg1) + " ตอนนี้คุณอยู่ในระดับที่มีปัญหาปานกลาง")
+                msg.setIcon(QMessageBox.Warning)
+            elif avg1 <= 1 and avg1 >= 0.1:
+                msg.setText("คุณได้คะแนน " + str(avg1) + " ตอนนี้คุณอยู่ในระดับที่มีปัญหาเล็กน้อย")
+                msg.setIcon(QMessageBox.Warning)
+            else:
+                msg.setText("คุณได้คะแนน " + str(avg1) + " ตอนนี้คุณไม่พบปัญหาใดๆ")
+                msg.setIcon(QMessageBox.Information)
+            msg.setStandardButtons(QMessageBox.Close)
+            x = msg.exec_()
 
 
 if __name__ == "__main__":
