@@ -25,13 +25,15 @@ class MainWin(QWidget):
         self.FacePosi: QLabel = self.findChild(QLabel, "FacePosi")
 
         self.btnStart.clicked.connect(self.getstart)
-        self.btnStart.clicked.connect(self.getupstart)
+        #self.btnStart.clicked.connect(self.getupstart)
+
         self.btnStop.clicked.connect(self.stopit)
         self.btnStop.clicked.connect(self.stopup)
-        self.threadPool = QThreadPool()
+        self.threadPool : QThreadPool = QThreadPool()
 
-        self.Coundown_msg = Coundown_msg(self.countdown_update)
+        self.Coundown_msg = Coundown_msg()
         self.Countup_msg = Countup_msg(self.countup_Update)
+
 
 
     def load_ui(self):
@@ -52,22 +54,24 @@ class MainWin(QWidget):
     def getstart(self):
         self.Coundown_msg.CountDown_ObjectStart = True
         Countd_Thread = countdownThread(self.Coundown_msg)
+        Countd_Thread.signel.finished.connect(self.countdown_messagebox)
+        Countd_Thread.signel.updateCountdown.connect(self.countdown_update)
         self.threadPool.start(Countd_Thread)
 
+
     def countdown_update(self):
-        msg = QMessageBox()
         self.Coundown_msg.countdown_time -= 1
         minss, secss = divmod(self.Coundown_msg.countdown_time, 60)
         hours, minss = divmod(minss, 60)
         x = '{:02d}:{:02d}:{:02d}'.format(hours, minss, secss)
         self.lbCountdowner.setText(x)
-        if self.Coundown_msg.countdown_time==0:
-            self.Coundown_msg.CountDown_ObjectStart = False
-            msg.setText("กรุณากรอกข้อมูลให้ครบ")
-            msg.setWindowTitle("Warning")
-            msg.setIcon(QMessageBox.Warning)
-            msg.setStandardButtons(QMessageBox.Close)
-            y = msg.exec_()
+
+    def countdown_messagebox(self):
+
+        message = QMessageBox()
+        message.setText("Alert")
+        message.exec_()
+
 
     def countup_Update(self):
         self.Countup_msg.countup_time += 1
@@ -86,16 +90,12 @@ class MainWin(QWidget):
     def stopup(self):
         self.Countup_msg.countup_ObjectStart = False
 
-    # def closeEvent(self, event):
-    #
-    #     quit_msg = "Are you sure you want to exit the program?"
-    #     reply = QWidget.QMessageBox.question(self, 'Message',
-    #                                        quit_msg, QWidget.QMessageBox.Yes, QWidget.QMessageBox.No)
-    #
-    #     if reply == QWidget.QMessageBox.Yes:
-    #         event.accept()
-    #     else:
-    #         event.ignore()
+    def closeEvent(self, event):
+        x= QMessageBox.question(self,"hello","Helloworld",QMessageBox.No,QMessageBox.Yes)
+        if x == QMessageBox.Yes :
+            event.accept()
+        else:
+            event.ignore()
 
 if __name__ == "__main__":
     app = QApplication([])
