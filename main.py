@@ -5,15 +5,17 @@ import time
 
 
 from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QMessageBox
-from PySide2.QtCore import QFile, QThreadPool
+from PySide2.QtCore import QFile, QThreadPool, QCoreApplication
 from PySide2.QtUiTools import QUiLoader
 
+from TestScript import TestScript
 from Countdown import Coundown_msg, countdownThread
 from Countup import Countup_msg, countupThread
 
 class MainWin(QWidget):
-    def __init__(self):
-        super(MainWin, self).__init__()
+    uuu = False
+    def __init__(self,parent=None):
+        super(MainWin, self).__init__(parent)
         self.load_ui()
 
         self.btnStart: QPushButton = self.findChild(QPushButton, "btnStart")
@@ -30,6 +32,8 @@ class MainWin(QWidget):
         self.btnStop.clicked.connect(self.stopit)
         self.btnStop.clicked.connect(self.stopup)
         self.threadPool : QThreadPool = QThreadPool()
+
+        self.TestScript = TestScript()
 
         self.Coundown_msg = Coundown_msg()
         self.Countup_msg = Countup_msg(self.countup_Update)
@@ -90,12 +94,19 @@ class MainWin(QWidget):
     def stopup(self):
         self.Countup_msg.countup_ObjectStart = False
 
-    def closeEvent(self, event):
-        x= QMessageBox.question(self,"hello","Helloworld",QMessageBox.No,QMessageBox.Yes)
+    def closeEvent(self, event ):
+        x= QMessageBox.question(self,"hello","กรุณาทำแบบทดสอบก่อนทำการออกจากระบบ",QMessageBox.No,QMessageBox.Yes)
         if x == QMessageBox.Yes :
-            event.accept()
+            test= TestScript(self)
+            test.resize(600*2,800)
+            test.show()
+            event.ignore()
         else:
             event.ignore()
+
+    def close():
+        QCoreApplication.quit()
+
 
 if __name__ == "__main__":
     app = QApplication([])

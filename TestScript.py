@@ -2,15 +2,15 @@
 import sys
 import os
 
-
-from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QMessageBox
+from PyQt5.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QMessageBox, QMainWindow
 from PySide2.QtCore import QFile
 from PySide2.QtUiTools import QUiLoader
 
 
-class TestScript(QWidget):
-    def __init__(self):
-        super(TestScript, self).__init__()
+class TestScript(QMainWindow):
+    def __init__(self,parent=None):
+        super(TestScript, self).__init__(parent)
         self.load_ui()
 
         self.btnSubmitTest: QPushButton = self.findChild(QPushButton,"btnSubmitTest")
@@ -34,6 +34,7 @@ class TestScript(QWidget):
 
 
     def radioanswer(self):
+
         msg = QMessageBox()
         if self.comboBox_1.currentText() == "---------" \
                 or self.comboBox_2.currentText() == "---------" \
@@ -68,6 +69,10 @@ class TestScript(QWidget):
                 msg.setIcon(QMessageBox.Information)
             msg.setStandardButtons(QMessageBox.Close)
             x = msg.exec_()
+            # if msg == QMessageBox.Close :
+            self.close()
+            from main import MainWin
+            MainWin.close()
 
 
 if __name__ == "__main__":

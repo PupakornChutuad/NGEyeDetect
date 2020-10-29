@@ -155,7 +155,7 @@
          </font>
         </property>
         <property name="text">
-         <string>CENTER</string>
+         <string>MISSING</string>
         </property>
        </widget>
       </item>
