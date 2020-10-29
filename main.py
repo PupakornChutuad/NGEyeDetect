@@ -10,7 +10,8 @@ from PySide2.QtUiTools import QUiLoader
 
 from TestScript import TestScript
 from Countdown import Coundown_msg, countdownThread
-from Countup import Countup_msg, countupThread
+from Countup import Countup_msg, CountupThread
+
 
 class MainWin(QWidget):
     uuu = False
@@ -27,7 +28,7 @@ class MainWin(QWidget):
         self.FacePosi: QLabel = self.findChild(QLabel, "FacePosi")
 
         self.btnStart.clicked.connect(self.getstart)
-        #self.btnStart.clicked.connect(self.getupstart)
+        self.btnStart.clicked.connect(self.getupstart)
 
         self.btnStop.clicked.connect(self.stopit)
         self.btnStop.clicked.connect(self.stopup)
@@ -36,7 +37,7 @@ class MainWin(QWidget):
         self.TestScript = TestScript()
 
         self.Coundown_msg = Coundown_msg()
-        self.Countup_msg = Countup_msg(self.countup_Update)
+        self.Countup_msg = Countup_msg()
 
 
 
@@ -52,8 +53,10 @@ class MainWin(QWidget):
 
     def getupstart(self):
         self.Countup_msg.countup_ObjectStart = True
-        Countup_Thread = countupThread(self.Countup_msg)
+        Countup_Thread = CountupThread(self.Countup_msg)
+        Countup_Thread.signel.updateCountup.connect(self.countup_update)
         self.threadPool.start(Countup_Thread)
+
 
     def getstart(self):
         self.Coundown_msg.CountDown_ObjectStart = True
@@ -77,20 +80,18 @@ class MainWin(QWidget):
         message.exec_()
 
 
-    def countup_Update(self):
+    def countup_update(self):
         self.Countup_msg.countup_time += 1
         mins, secs = divmod(self.Countup_msg.countup_time, 60)
         hour, mins = divmod(mins, 60)
         y = '{:02d}:{:02d}:{:02d}'.format(hour, mins, secs)
         self.lbCountUP.setText(y)
 
-        if  self.Countup_msg.countup_ObjectStart == False:
-            self.lbCountUP.setText(y)
-
     def stopit(self):
         self.Coundown_msg.CountDown_ObjectStart = False
         self.Coundown_msg.countdown_time=5
         # self.lbCountdowner.setText(str("00:30:00"))
+
     def stopup(self):
         self.Countup_msg.countup_ObjectStart = False
 
@@ -104,7 +105,7 @@ class MainWin(QWidget):
         else:
             event.ignore()
 
-    def close():
+    def close(self):
         QCoreApplication.quit()
 
 
