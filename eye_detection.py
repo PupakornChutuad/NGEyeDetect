@@ -4,10 +4,8 @@ import cv2
 import  numpy as np
 import  dlib
 import time
-cap = cv2.VideoCapture(0)
 
-detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+
 
 total = 0
 totalright=0
@@ -16,7 +14,9 @@ totalleft=0
 
 class Eyedetec_msg:
     def __init__(self):
-        pass
+        self.Eyedetec_start = False
+        self.eye_position = "Offline"
+
 
 
 def midpoint(p1 ,p2):
@@ -66,15 +66,21 @@ class EyedetecSignel(QObject) :
     finished = Signal(str)
     updateEyedetec = Signal(str)
 
-class countdownThread(QRunnable):
+class Eyedetec_Thread(QRunnable):
 
     def __init__(self, msg: Eyedetec_msg):
-        super(countdownThread, self).__init__()
+        super(Eyedetec_Thread, self).__init__()
         self.msg = msg
-
         self.signel = EyedetecSignel()
 
     def run(self):
+        cap = cv2.VideoCapture(0)
+
+        detector = dlib.get_frontal_face_detector()
+        predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+        totalright = 0
+        totalcenter = 0
+        totalleft = 0
         while True:
             time.sleep(1/60)
             _, frame = cap.read()
@@ -89,28 +95,35 @@ class countdownThread(QRunnable):
 
                     landmarks = predictor(gray, face)
 
-                    gaze_ratio_left_eye = get_gaze_ratio([36, 37, 38, 39, 40, 41], landmarks)
-                    gaze_ratio_right_eye = get_gaze_ratio([42, 43, 44, 45, 46, 47], landmarks)
+                    gaze_ratio_left_eye = get_gaze_ratio([36, 37, 38, 39, 40, 41], landmarks, frame, gray)
+                    gaze_ratio_right_eye = get_gaze_ratio([42, 43, 44, 45, 46, 47], landmarks, frame, gray)
                     gaze_ratio = (gaze_ratio_right_eye + gaze_ratio_left_eye) / 2
 
                     # facepocition
                     if gaze_ratio < 0.5 and gaze_ratio > 0:
                         cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
-                        print("right")
+                        self.signel.updateEyedetec.emit("Right")
+                        totalright += 1
+
                     elif 0.5 < gaze_ratio < 1.2:
                         cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
-                        print("center")
+                        self.signel.updateEyedetec.emit("Center")
+                        totalcenter += 1
+
                     elif gaze_ratio > 1.2:
                         cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
-                        print("left")
-            # cv2.imshow("Frame", frame)
+                        self.signel.updateEyedetec.emit("Left")
+                        totalleft += 1
+
+            cv2.imshow("Frame", frame)
 
             key = cv2.waitKey(1)
             if key == 27:
                 break
+        self.signel.finished.emit("stop")
 
         cap.release()
         cv2.destroyAllWindows()
 
-        pass
+
 

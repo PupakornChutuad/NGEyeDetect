@@ -10,6 +10,7 @@ from PySide2.QtUiTools import QUiLoader
 
 from Countdown import Coundown_msg, countdownThread
 from Countup import Countup_msg, countupThread
+from eye_detection import Eyedetec_msg, Eyedetec_Thread
 
 class MainWin(QWidget):
     def __init__(self):
@@ -26,12 +27,15 @@ class MainWin(QWidget):
 
         self.btnStart.clicked.connect(self.getstart)
         #self.btnStart.clicked.connect(self.getupstart)
+        self.btnStart.clicked.connect(self.Eye_start)
 
         self.btnStop.clicked.connect(self.stopit)
         self.btnStop.clicked.connect(self.stopup)
+        self.btnStop.clicked.connect(self.StopDetec)
         self.threadPool : QThreadPool = QThreadPool()
 
         self.Coundown_msg = Coundown_msg()
+        self.Eyedetec_msg = Eyedetec_msg()
         self.Countup_msg = Countup_msg(self.countup_Update)
 
 
@@ -58,6 +62,13 @@ class MainWin(QWidget):
         Countd_Thread.signel.updateCountdown.connect(self.countdown_update)
         self.threadPool.start(Countd_Thread)
 
+    def Eye_start(self):
+        self.Eyedetec_msg.Eyedetec_start = True
+        eye_thread = Eyedetec_Thread(self.Eyedetec_msg)
+        eye_thread.signel.updateEyedetec.connect(self.Eyedect_Update)
+        self.threadPool.start(eye_thread)
+
+
 
     def countdown_update(self):
         self.Coundown_msg.countdown_time -= 1
@@ -83,6 +94,9 @@ class MainWin(QWidget):
         if  self.Countup_msg.countup_ObjectStart == False:
             self.lbCountUP.setText(y)
 
+    def Eyedect_Update(self):
+        self.FacePosi.setText("online")
+
     def stopit(self):
         self.Coundown_msg.CountDown_ObjectStart = False
         self.Coundown_msg.countdown_time=5
@@ -90,12 +104,19 @@ class MainWin(QWidget):
     def stopup(self):
         self.Countup_msg.countup_ObjectStart = False
 
+    def StopDetec(self):
+        self.Eyedetec_msg.Eyedetec_start = False
+        self.FacePosi.setText("Offline")
+
+
     def closeEvent(self, event):
         x= QMessageBox.question(self,"hello","Helloworld",QMessageBox.No,QMessageBox.Yes)
         if x == QMessageBox.Yes :
             event.accept()
         else:
             event.ignore()
+
+
 
 if __name__ == "__main__":
     app = QApplication([])
