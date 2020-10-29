@@ -82,38 +82,35 @@ class Eyedetec_Thread(QRunnable):
         totalcenter = 0
         totalleft = 0
         while True:
-            time.sleep(1/60)
+            time.sleep(1/120)
             _, frame = cap.read()
             new_frame = np.zeros((500, 500, 3), np.uint8)
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
             faces = detector(gray)
-            if len(faces) == 0:  # do something here
-                cv2.putText(frame, "Missing", (50, 100), font, 2, (0, 0, 255), 3)
-            else:
-                for face in faces:
+            for face in faces:
 
-                    landmarks = predictor(gray, face)
+                landmarks = predictor(gray, face)
 
-                    gaze_ratio_left_eye = get_gaze_ratio([36, 37, 38, 39, 40, 41], landmarks, frame, gray)
-                    gaze_ratio_right_eye = get_gaze_ratio([42, 43, 44, 45, 46, 47], landmarks, frame, gray)
-                    gaze_ratio = (gaze_ratio_right_eye + gaze_ratio_left_eye) / 2
+                gaze_ratio_left_eye = get_gaze_ratio([36, 37, 38, 39, 40, 41], landmarks, frame, gray)
+                gaze_ratio_right_eye = get_gaze_ratio([42, 43, 44, 45, 46, 47], landmarks, frame, gray)
+                gaze_ratio = (gaze_ratio_right_eye + gaze_ratio_left_eye) / 2
 
                     # facepocition
-                    if gaze_ratio < 0.5 and gaze_ratio > 0:
-                        cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
-                        self.signel.updateEyedetec.emit("Right")
-                        totalright += 1
+                if gaze_ratio < 0.5 and gaze_ratio > 0:
+                    cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
+                    self.signel.updateEyedetec.emit("Right")
+                    totalright += 1
 
-                    elif 0.5 < gaze_ratio < 1.2:
-                        cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
-                        self.signel.updateEyedetec.emit("Center")
-                        totalcenter += 1
+                elif 0.5 < gaze_ratio < 1.2:
+                    cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
+                    self.signel.updateEyedetec.emit("Center")
+                    totalcenter += 1
 
-                    elif gaze_ratio > 1.2:
-                        cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
-                        self.signel.updateEyedetec.emit("Left")
-                        totalleft += 1
+                elif gaze_ratio > 1.2:
+                    cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
+                    self.signel.updateEyedetec.emit("Left")
+                    totalleft += 1
 
             cv2.imshow("Frame", frame)
 
