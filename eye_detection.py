@@ -1,10 +1,9 @@
 from __future__ import division
+from PySide2.QtCore import QRunnable, QSignalTransition, Signal, QObject
 import cv2
 import  numpy as np
 import  dlib
 import time
-
-
 cap = cv2.VideoCapture(0)
 
 detector = dlib.get_frontal_face_detector()
@@ -14,6 +13,11 @@ total = 0
 totalright=0
 totalcenter=0
 totalleft=0
+
+class Eyedetec_msg:
+    def __init__(self):
+        pass
+
 
 def midpoint(p1 ,p2):
     return int((p1.x + p2.x)/2), int((p1.y + p2.y)/2)
@@ -58,39 +62,55 @@ def get_gaze_ratio(eye_points, facial_landmarks,frame,gray):
         gaze_ratio = left_side_white / right_side_white
     return gaze_ratio
 
-def alaikordai():
-    while True:
-        _, frame = cap.read()
-        new_frame = np.zeros((500, 500, 3), np.uint8)
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+class EyedetecSignel(QObject) :
+    finished = Signal(str)
+    updateEyedetec = Signal(str)
 
-        faces = detector(gray)
-        if len(faces) == 0:  # do something here
-            cv2.putText(frame, "Missing", (50, 100), font, 2, (0, 0, 255), 3)
-        else:
-            for face in faces:
+class countdownThread(QRunnable):
 
-                landmarks = predictor(gray, face)
+    def __init__(self, msg: Eyedetec_msg):
+        super(countdownThread, self).__init__()
+        self.msg = msg
 
-                gaze_ratio_left_eye = get_gaze_ratio([36, 37, 38, 39, 40, 41], landmarks)
-                gaze_ratio_right_eye = get_gaze_ratio([42, 43, 44, 45, 46, 47], landmarks)
-                gaze_ratio = (gaze_ratio_right_eye + gaze_ratio_left_eye) / 2
+        self.signel = EyedetecSignel()
 
-                # facepocition
-                if gaze_ratio < 0.5 and gaze_ratio > 0:
-                    cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
-                    print("right")
-                elif 0.5 < gaze_ratio < 1.2:
-                    cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
-                    print("center")
-                elif gaze_ratio > 1.2:
-                    cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
-                    print("left")
-        # cv2.imshow("Frame", frame)
+    def run(self):
+        while True:
+            time.sleep(1/60)
+            _, frame = cap.read()
+            new_frame = np.zeros((500, 500, 3), np.uint8)
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        key = cv2.waitKey(1)
-        if key == 27:
-            break
+            faces = detector(gray)
+            if len(faces) == 0:  # do something here
+                cv2.putText(frame, "Missing", (50, 100), font, 2, (0, 0, 255), 3)
+            else:
+                for face in faces:
 
-cap.release()
-cv2.destroyAllWindows()
+                    landmarks = predictor(gray, face)
+
+                    gaze_ratio_left_eye = get_gaze_ratio([36, 37, 38, 39, 40, 41], landmarks)
+                    gaze_ratio_right_eye = get_gaze_ratio([42, 43, 44, 45, 46, 47], landmarks)
+                    gaze_ratio = (gaze_ratio_right_eye + gaze_ratio_left_eye) / 2
+
+                    # facepocition
+                    if gaze_ratio < 0.5 and gaze_ratio > 0:
+                        cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
+                        print("right")
+                    elif 0.5 < gaze_ratio < 1.2:
+                        cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
+                        print("center")
+                    elif gaze_ratio > 1.2:
+                        cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
+                        print("left")
+            # cv2.imshow("Frame", frame)
+
+            key = cv2.waitKey(1)
+            if key == 27:
+                break
+
+        cap.release()
+        cv2.destroyAllWindows()
+
+        pass
+
