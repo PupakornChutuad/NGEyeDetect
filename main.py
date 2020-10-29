@@ -116,6 +116,7 @@ class MainWin(QWidget):
                 TotalLeft += 1
         else:
             self.FacePosi.setText("Off")
+        print(TotalRight,TotalCenter,TotalLeft)
 
 
     def stopit(self):
