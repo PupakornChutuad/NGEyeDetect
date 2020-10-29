@@ -94,8 +94,8 @@ class MainWin(QWidget):
         if  self.Countup_msg.countup_ObjectStart == False:
             self.lbCountUP.setText(y)
 
-    def Eyedect_Update(self):
-        self.FacePosi.setText("online")
+    def Eyedect_Update(self,position):
+        self.FacePosi.setText(position)
 
     def stopit(self):
         self.Coundown_msg.CountDown_ObjectStart = False
