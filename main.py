@@ -9,7 +9,7 @@ from PySide2.QtCore import QFile, QThreadPool
 from PySide2.QtUiTools import QUiLoader
 
 from Countdown import Coundown_msg, countdownThread
-from Countup import Countup_msg, countupThread
+from Countup import Countup_msg, CountupThread
 from eye_detection import Eyedetec_msg, Eyedetec_Thread
 
 class MainWin(QWidget):
@@ -26,7 +26,7 @@ class MainWin(QWidget):
         self.FacePosi: QLabel = self.findChild(QLabel, "FacePosi")
 
         self.btnStart.clicked.connect(self.getstart)
-        #self.btnStart.clicked.connect(self.getupstart)
+        self.btnStart.clicked.connect(self.getupstart)
         self.btnStart.clicked.connect(self.Eye_start)
 
         self.btnStop.clicked.connect(self.stopit)
@@ -36,7 +36,7 @@ class MainWin(QWidget):
 
         self.Coundown_msg = Coundown_msg()
         self.Eyedetec_msg = Eyedetec_msg()
-        self.Countup_msg = Countup_msg(self.countup_Update)
+        self.Countup_msg = Countup_msg()
 
 
 
@@ -52,7 +52,8 @@ class MainWin(QWidget):
 
     def getupstart(self):
         self.Countup_msg.countup_ObjectStart = True
-        Countup_Thread = countupThread(self.Countup_msg)
+        Countup_Thread = CountupThread(self.Countup_msg)
+        Countup_Thread.signel.updateCountup.connect(self.countup_update)
         self.threadPool.start(Countup_Thread)
 
     def getstart(self):
@@ -68,7 +69,12 @@ class MainWin(QWidget):
         eye_thread.signel.updateEyedetec.connect(self.Eyedect_Update)
         self.threadPool.start(eye_thread)
 
-
+    def countup_update(self):
+        self.Countup_msg.countup_time += 1
+        mins, secs = divmod(self.Countup_msg.countup_time, 60)
+        hour, mins = divmod(mins, 60)
+        y = '{:02d}:{:02d}:{:02d}'.format(hour, mins, secs)
+        self.lbCountUP.setText(y)
 
     def countdown_update(self):
         self.Coundown_msg.countdown_time -= 1
@@ -76,6 +82,7 @@ class MainWin(QWidget):
         hours, minss = divmod(minss, 60)
         x = '{:02d}:{:02d}:{:02d}'.format(hours, minss, secss)
         self.lbCountdowner.setText(x)
+
 
     def countdown_messagebox(self):
 
@@ -90,12 +97,17 @@ class MainWin(QWidget):
         hour, mins = divmod(mins, 60)
         y = '{:02d}:{:02d}:{:02d}'.format(hour, mins, secs)
         self.lbCountUP.setText(y)
+        print("hell")
 
         if  self.Countup_msg.countup_ObjectStart == False:
             self.lbCountUP.setText(y)
 
     def Eyedect_Update(self,position):
         self.FacePosi.setText(position)
+        if self.Coundown_msg.countdown_time == 0 :
+            self.FacePosi.setText("offine")
+
+
 
     def stopit(self):
         self.Coundown_msg.CountDown_ObjectStart = False
@@ -106,7 +118,7 @@ class MainWin(QWidget):
 
     def StopDetec(self):
         self.Eyedetec_msg.Eyedetec_start = False
-        self.FacePosi.setText("Offline")
+        self.FacePosi.setText("Off")
 
 
     def closeEvent(self, event):

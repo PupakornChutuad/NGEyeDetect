@@ -1,21 +1,29 @@
 import time
 
-from PySide2.QtCore import QRunnable
+from PySide2.QtCore import QRunnable, QSignalTransition, Signal, QObject
+
 
 class Countup_msg:
-    def __init__(self,countup_func):
-        self.countup_ObjectStart= False
-        self.countup_time= 0
-        self.countUPFunc=countup_func
+    def __init__(self):
+        self.countup_ObjectStart = False
+        self.countup_time = 0
 
-class countupThread(QRunnable):
 
-    def __init__(self,msg:Countup_msg):
-        super(countupThread,self).__init__()
-        self.msg=msg
+class CountupSignel(QObject):
+    finished = Signal(str)
+    updateCountup = Signal(str)
+
+
+class CountupThread(QRunnable):
+    def __init__(self, msg: Countup_msg):
+        super(CountupThread, self).__init__()
+        self.msg = msg
+
+        self.signel = CountupSignel()
 
     def run(self):
-
         while self.msg.countup_time >= 0 and self.msg.countup_ObjectStart:
-            self.msg.countUPFunc()
+            self.signel.updateCountup.emit("OK")
             time.sleep(1)
+
+        self.signel.finished.emit("OK")

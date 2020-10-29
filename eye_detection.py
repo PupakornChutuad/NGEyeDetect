@@ -7,11 +7,6 @@ import time
 
 
 
-total = 0
-totalright=0
-totalcenter=0
-totalleft=0
-
 class Eyedetec_msg:
     def __init__(self):
         self.Eyedetec_start = False
@@ -65,6 +60,7 @@ def get_gaze_ratio(eye_points, facial_landmarks,frame,gray):
 class EyedetecSignel(QObject) :
     finished = Signal(str)
     updateEyedetec = Signal(str)
+    updateTotaleye = Signal(str)
 
 class Eyedetec_Thread(QRunnable):
 
@@ -75,6 +71,7 @@ class Eyedetec_Thread(QRunnable):
 
     def run(self):
         cap = cv2.VideoCapture(0)
+
 
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
@@ -112,7 +109,7 @@ class Eyedetec_Thread(QRunnable):
                     self.signel.updateEyedetec.emit("Left")
                     totalleft += 1
 
-            cv2.imshow("Frame", frame)
+
 
             key = cv2.waitKey(1)
             if key == 27:
