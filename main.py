@@ -97,16 +97,25 @@ class MainWin(QWidget):
         hour, mins = divmod(mins, 60)
         y = '{:02d}:{:02d}:{:02d}'.format(hour, mins, secs)
         self.lbCountUP.setText(y)
-        print("hell")
+
 
         if  self.Countup_msg.countup_ObjectStart == False:
             self.lbCountUP.setText(y)
 
     def Eyedect_Update(self,position):
+        TotalRight = 0
+        TotalCenter = 0
+        TotalLeft = 0
         self.FacePosi.setText(position)
-        if self.Coundown_msg.countdown_time == 0 :
-            self.FacePosi.setText("offine")
-
+        if self.Coundown_msg.countdown_time != 0 :
+            if position == "Right" :
+                TotalRight += 1
+            elif position == "Center" :
+                TotalCenter += 1
+            elif position == "Left" :
+                TotalLeft += 1
+        else:
+            self.FacePosi.setText("Off")
 
 
     def stopit(self):
@@ -118,7 +127,8 @@ class MainWin(QWidget):
 
     def StopDetec(self):
         self.Eyedetec_msg.Eyedetec_start = False
-        self.FacePosi.setText("Off")
+        self.Eyedetec_msg.eye_positiont = "Off"
+        # self.FacePosi.setText("Off")
 
 
     def closeEvent(self, event):

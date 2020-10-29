@@ -19,7 +19,6 @@ class countdownThread(QRunnable):
     def __init__(self, msg: Coundown_msg):
         super(countdownThread, self).__init__()
         self.msg = msg
-
         self.signel = CoundownSignel()
 
     def run(self):

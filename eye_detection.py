@@ -10,7 +10,7 @@ import time
 class Eyedetec_msg:
     def __init__(self):
         self.Eyedetec_start = False
-        self.eye_position = "Offline"
+        self.eye_position = "Off"
 
 
 
@@ -111,9 +111,9 @@ class Eyedetec_Thread(QRunnable):
 
 
 
-            key = cv2.waitKey(1)
-            if key == 27:
-                break
+            # key = cv2.waitKey(1)
+            # if key == 27:
+            #     break
         self.signel.finished.emit("stop")
 
         cap.release()
