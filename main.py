@@ -2,6 +2,7 @@
 import sys
 import os
 import time
+import pandas as pd
 
 
 from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QMessageBox
@@ -11,7 +12,7 @@ from PySide2.QtUiTools import QUiLoader
 from TestScript import TestScript
 from Countdown import Coundown_msg, countdownThread
 from Countup import Countup_msg, CountupThread
-
+from eye_detection import Eyedetec_msg, Eyedetec_Thread
 
 class MainWin(QWidget):
     uuu = False
@@ -29,15 +30,20 @@ class MainWin(QWidget):
 
         self.btnStart.clicked.connect(self.getstart)
         self.btnStart.clicked.connect(self.getupstart)
+        self.btnStart.clicked.connect(self.Eye_start)
 
         self.btnStop.clicked.connect(self.stopit)
         self.btnStop.clicked.connect(self.stopup)
+        self.btnStop.clicked.connect(self.StopDetec)
+
         self.threadPool : QThreadPool = QThreadPool()
 
         self.TestScript = TestScript()
 
         self.Coundown_msg = Coundown_msg()
         self.Countup_msg = Countup_msg()
+        self.Eyedetec_msg = Eyedetec_msg()
+
 
 
 
@@ -79,6 +85,12 @@ class MainWin(QWidget):
         message.setText("Alert")
         message.exec_()
 
+    def Eye_start(self):
+        self.Eyedetec_msg.Eyedetec_start = True
+        eye_thread = Eyedetec_Thread(self.Eyedetec_msg)
+        eye_thread.signel.updateEyedetec.connect(self.Eyedect_Update)
+        self.threadPool.start(eye_thread)
+
 
     def countup_update(self):
         self.Countup_msg.countup_time += 1
@@ -87,6 +99,35 @@ class MainWin(QWidget):
         y = '{:02d}:{:02d}:{:02d}'.format(hour, mins, secs)
         self.lbCountUP.setText(y)
 
+    def Eyedect_Update(self, position):
+        TotalRight = 0
+        TotalCenter = 0
+        TotalLeft = 0
+        data = {"Right":[TotalRight],
+                "Center":[TotalCenter],
+                "Left":[TotalLeft]}
+        df=pd.DataFrame(data,columns=['Right','Center','Left'])
+
+
+        self.FacePosi.setText(position)
+        if self.Coundown_msg.countdown_time != 0:
+            if position == "Right":
+                TotalRight += 1
+            elif position == "Center":
+                TotalCenter += 1
+            elif position == "Left":
+                TotalLeft += 1
+
+            newrow = {'Right':TotalRight,
+                    'Center':TotalCenter,
+                    'Left':TotalLeft}
+            df=df.append(newrow ,ignore_index=True)
+
+            df.to_csv("test.csv")
+        else:
+            self.FacePosi.setText("Off")
+
+
     def stopit(self):
         self.Coundown_msg.CountDown_ObjectStart = False
         self.Coundown_msg.countdown_time=5
@@ -94,6 +135,11 @@ class MainWin(QWidget):
 
     def stopup(self):
         self.Countup_msg.countup_ObjectStart = False
+
+    def StopDetec(self):
+        self.Eyedetec_msg.Eyedetec_start = False
+        self.Eyedetec_msg.eye_positiont = "Off"
+        # self.FacePosi.setText("Off")
 
     def closeEvent(self, event ):
         x= QMessageBox.question(self,"hello","กรุณาทำแบบทดสอบก่อนทำการออกจากระบบ",QMessageBox.No,QMessageBox.Yes)

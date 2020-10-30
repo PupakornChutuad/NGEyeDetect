@@ -79,7 +79,7 @@ class Eyedetec_Thread(QRunnable):
         totalcenter = 0
         totalleft = 0
         while True:
-            time.sleep(1/120)
+            time.sleep(1/60)
             _, frame = cap.read()
             new_frame = np.zeros((500, 500, 3), np.uint8)
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
