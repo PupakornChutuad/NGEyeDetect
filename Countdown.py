@@ -6,7 +6,7 @@ from PySide2.QtCore import QRunnable, QSignalTransition, Signal, QObject
 class Coundown_msg:
     def __init__(self):
         self.CountDown_ObjectStart = False
-        self.countdown_time = 10
+        self.countdown_time = 1800
 
 
 class CoundownSignel(QObject) :
