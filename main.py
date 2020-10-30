@@ -71,6 +71,11 @@ class MainWin(QWidget):
         Countd_Thread.signel.updateCountdown.connect(self.countdown_update)
         self.threadPool.start(Countd_Thread)
 
+    def Eye_start(self):
+        self.Eyedetec_msg.Eyedetec_start = True
+        eye_thread = Eyedetec_Thread(self.Eyedetec_msg)
+        eye_thread.signel.updateEyedetec.connect(self.Eyedect_Update)
+        self.threadPool.start(eye_thread)
 
     def countdown_update(self):
         self.Coundown_msg.countdown_time -= 1
@@ -84,12 +89,6 @@ class MainWin(QWidget):
         message = QMessageBox()
         message.setText("Alert")
         message.exec_()
-
-    def Eye_start(self):
-        self.Eyedetec_msg.Eyedetec_start = True
-        eye_thread = Eyedetec_Thread(self.Eyedetec_msg)
-        eye_thread.signel.updateEyedetec.connect(self.Eyedect_Update)
-        self.threadPool.start(eye_thread)
 
 
     def countup_update(self):
@@ -125,12 +124,13 @@ class MainWin(QWidget):
 
             df.to_csv("test.csv")
         else:
-            self.FacePosi.setText("Off")
+            self.Eyedetec_msg.Eyedetec_start = False
+            self.FacePosi.setText("OUT OF TIME")
 
 
     def stopit(self):
         self.Coundown_msg.CountDown_ObjectStart = False
-        self.Coundown_msg.countdown_time=5
+        self.Coundown_msg.countdown_time=10
         # self.lbCountdowner.setText(str("00:30:00"))
 
     def stopup(self):

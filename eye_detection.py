@@ -64,7 +64,7 @@ class EyedetecSignel(QObject) :
 
 class Eyedetec_Thread(QRunnable):
 
-    def __init__(self, msg: Eyedetec_msg):
+    def __init__(self,msg : Eyedetec_msg):
         super(Eyedetec_Thread, self).__init__()
         self.msg = msg
         self.signel = EyedetecSignel()
@@ -78,13 +78,16 @@ class Eyedetec_Thread(QRunnable):
         totalright = 0
         totalcenter = 0
         totalleft = 0
-        while True:
-            time.sleep(1/60)
+        while self.msg.Eyedetec_start:
+            time.sleep(1/10)
             _, frame = cap.read()
             new_frame = np.zeros((500, 500, 3), np.uint8)
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
             faces = detector(gray)
+            # if len(faces) == 0 :
+            #     pass
+            # else :
             for face in faces:
 
                 landmarks = predictor(gray, face)
@@ -93,11 +96,12 @@ class Eyedetec_Thread(QRunnable):
                 gaze_ratio_right_eye = get_gaze_ratio([42, 43, 44, 45, 46, 47], landmarks, frame, gray)
                 gaze_ratio = (gaze_ratio_right_eye + gaze_ratio_left_eye) / 2
 
-                    # facepocition
+                            # facepocition
                 if gaze_ratio < 0.5 and gaze_ratio > 0:
                     cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
                     self.signel.updateEyedetec.emit("Right")
                     totalright += 1
+
 
                 elif 0.5 < gaze_ratio < 1.2:
                     cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
@@ -111,9 +115,9 @@ class Eyedetec_Thread(QRunnable):
 
 
 
-            # key = cv2.waitKey(1)
-            # if key == 27:
-            #     break
+                # key = cv2.waitKey(1)
+                # if key == 27:
+                #     break
         self.signel.finished.emit("stop")
 
         cap.release()

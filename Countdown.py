@@ -26,7 +26,7 @@ class countdownThread(QRunnable):
         while self.msg.countdown_time > 0 and self.msg.CountDown_ObjectStart:
             self.signel.updateCountdown.emit("OK")
             time.sleep(1)
-
+        self.msg.CountDown_ObjectStart=False
         self.signel.finished.emit("OK")
         #     mins, secs = divmod(self.msg.countdown_time, 60)
         #     hour, mins = divmod(mins, 60)
