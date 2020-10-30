@@ -58,7 +58,7 @@ def get_gaze_ratio(eye_points, facial_landmarks):
         gaze_ratio = left_side_white / right_side_white
     return gaze_ratio
 
-def alaikordai():
+
     while True:
         _, frame = cap.read()
         new_frame = np.zeros((500, 500, 3), np.uint8)
