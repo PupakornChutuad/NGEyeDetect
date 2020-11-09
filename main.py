@@ -15,7 +15,7 @@ from Countup import Countup_msg, CountupThread
 from eye_detection import Eyedetec_msg, Eyedetec_Thread
 
 class MainWin(QWidget):
-    uuu = False
+
     def __init__(self,parent=None):
         super(MainWin, self).__init__(parent)
         self.load_ui()
@@ -23,6 +23,7 @@ class MainWin(QWidget):
         self.btnStart: QPushButton = self.findChild(QPushButton, "btnStart")
         self.btnStop: QPushButton = self.findChild(QPushButton, "btnStop")
         self.btnVH: QPushButton = self.findChild(QPushButton, "btnVH")
+        self.TestForm_btn: QPushButton = self.findChild(QPushButton, "TestForm_btn")
 
         self.lbCountdowner: QLabel = self.findChild(QLabel, "lbCountdowner")
         self.lbCountUP: QLabel = self.findChild(QLabel, "lbCountUP")
@@ -35,6 +36,8 @@ class MainWin(QWidget):
         self.btnStop.clicked.connect(self.stopit)
         self.btnStop.clicked.connect(self.stopup)
         self.btnStop.clicked.connect(self.StopDetec)
+
+        self.TestForm_btn.clicked.connect(self.OpenTestForm)
 
         self.threadPool : QThreadPool = QThreadPool()
 
@@ -141,15 +144,20 @@ class MainWin(QWidget):
         self.Eyedetec_msg.eye_positiont = "Off"
         # self.FacePosi.setText("Off")
 
-    def closeEvent(self, event ):
-        x= QMessageBox.question(self,"hello","กรุณาทำแบบทดสอบก่อนทำการออกจากระบบ",QMessageBox.No,QMessageBox.Yes)
-        if x == QMessageBox.Yes :
-            test= TestScript(self)
-            test.resize(600*2,800)
-            test.show()
-            event.ignore()
-        else:
-            event.ignore()
+    def OpenTestForm(self):
+        test = TestScript(self)
+        test.resize(600 * 2, 800)
+        test.show()
+
+    # def closeEvent(self, event ):
+    #     x= QMessageBox.question(self,"hello","กรุณาทำแบบทดสอบก่อนทำการออกจากระบบ",QMessageBox.No,QMessageBox.Yes)
+    #     if x == QMessageBox.Yes :
+    #         test= TestScript(self)
+    #         test.resize(600*2,800)
+    #         test.show()
+    #         event.ignore()
+    #     else:
+    #         event.ignore()
 
     def close(self):
         QCoreApplication.quit()
