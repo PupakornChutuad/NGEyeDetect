@@ -88,12 +88,14 @@ class MainWin(QWidget):
         hours, minss = divmod(minss, 60)
         x = '{:02d}:{:02d}:{:02d}'.format(hours, minss, secss)
         self.lbCountdowner.setText(x)
+
     def countdown_messagebox(self):
 
         message = QMessageBox()
         message.setText("ขณะนี้คุณได้ใช้เวลาอยู่กับหน้าจอคอมพิวเตอร์นานเกินไป "
                         "กรุณาละสายตาออกห่างจากคอมพิวเตอร์เป็นเวลา 20 วินาที")
-
+        c=QPushButton(message)
+        message.setButtonText()
         message.exec_()
 
 
