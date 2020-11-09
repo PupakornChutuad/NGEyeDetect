@@ -91,7 +91,9 @@ class MainWin(QWidget):
     def countdown_messagebox(self):
 
         message = QMessageBox()
-        message.setText("Alert")
+        message.setText("ขณะนี้คุณได้ใช้เวลาอยู่กับหน้าจอคอมพิวเตอร์นานเกินไป "
+                        "กรุณาละสายตาออกห่างจากคอมพิวเตอร์เป็นเวลา 20 วินาที")
+
         message.exec_()
 
 
