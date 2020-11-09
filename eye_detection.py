@@ -86,7 +86,7 @@ class Eyedetec_Thread(QRunnable):
 
             faces = detector(gray)
             if len(faces) == 0 :
-                pass
+                self.signel.updateEyedetec.emit("Missing")
             else :
                 for face in faces:
 

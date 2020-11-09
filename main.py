@@ -70,7 +70,9 @@ class MainWin(QWidget):
     def getstart(self):
         self.Coundown_msg.CountDown_ObjectStart = True
         Countd_Thread = countdownThread(self.Coundown_msg)
-        Countd_Thread.signel.finished.connect(self.countdown_messagebox)
+        Countd_Thread.signel.timeout.connect(self.countdown_messagebox)
+        Countd_Thread.signel.timeout.connect(self.stopit)
+        Countd_Thread.signel.timeout.connect(self.stopup)
         Countd_Thread.signel.updateCountdown.connect(self.countdown_update)
         self.threadPool.start(Countd_Thread)
 
@@ -86,7 +88,6 @@ class MainWin(QWidget):
         hours, minss = divmod(minss, 60)
         x = '{:02d}:{:02d}:{:02d}'.format(hours, minss, secss)
         self.lbCountdowner.setText(x)
-
     def countdown_messagebox(self):
 
         message = QMessageBox()
@@ -134,7 +135,7 @@ class MainWin(QWidget):
     def stopit(self):
         self.Coundown_msg.CountDown_ObjectStart = False
         self.Coundown_msg.countdown_time=10
-        # self.lbCountdowner.setText(str("00:30:00"))
+        self.lbCountdowner.setText(str("00:20:00"))
 
     def stopup(self):
         self.Countup_msg.countup_ObjectStart = False

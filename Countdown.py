@@ -6,13 +6,13 @@ from PySide2.QtCore import QRunnable, QSignalTransition, Signal, QObject
 class Coundown_msg:
     def __init__(self):
         self.CountDown_ObjectStart = False
-        self.countdown_time = 1800
+        self.countdown_time = 7
 
 
 class CoundownSignel(QObject) :
     finished = Signal(str)
     updateCountdown = Signal(str)
-
+    timeout = Signal(str)
 
 class countdownThread(QRunnable):
 
@@ -26,6 +26,10 @@ class countdownThread(QRunnable):
         while self.msg.countdown_time > 0 and self.msg.CountDown_ObjectStart:
             self.signel.updateCountdown.emit("OK")
             time.sleep(1)
+
+        if self.msg.countdown_time == 0:
+            self.signel.timeout.emit("OK")
+            self.msg.CountDown_ObjectStart = False
         self.msg.CountDown_ObjectStart=False
         self.signel.finished.emit("OK")
         #     mins, secs = divmod(self.msg.countdown_time, 60)
