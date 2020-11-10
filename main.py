@@ -90,12 +90,14 @@ class MainWin(QWidget):
         self.lbCountdowner.setText(x)
 
     def countdown_messagebox(self):
-
         message = QMessageBox()
-        message.setText("ขณะนี้คุณได้ใช้เวลาอยู่กับหน้าจอคอมพิวเตอร์นานเกินไป "
-                        "กรุณาละสายตาออกห่างจากคอมพิวเตอร์เป็นเวลา 20 วินาที")
-        c=QPushButton(message)
-        message.setButtonText()
+        message.setIcon(QMessageBox.Warning)
+
+        message.setWindowTitle("คำเตือน")
+        message.setText("ขณะนี้คุณได้ใช้เวลาอยู่กับหน้าจอคอมพิวเตอร์นานเกินไป ")
+        message.setInformativeText("กรุณาละสายตาออกห่างจากคอมพิวเตอร์เป็นเวลา 20 วินาที")
+        # c=QPushButton(message)
+
         message.exec_()
 
 
