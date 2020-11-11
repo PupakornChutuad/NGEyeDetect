@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1031</width>
+    <width>1289</width>
     <height>678</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>19</x>
      <y>19</y>
-     <width>991</width>
+     <width>1251</width>
      <height>631</height>
     </rect>
    </property>
@@ -35,7 +35,7 @@
      <rect>
       <x>20</x>
       <y>40</y>
-      <width>441</width>
+      <width>1221</width>
       <height>571</height>
      </rect>
     </property>
@@ -51,8 +51,13 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>1. มองเห็นภาพซ้อน ขณที่มองหน้าจอ</string>
+      <string>1. มองเห็นภาพซ้อน ขณะที่มองหน้าจอ</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -60,12 +65,17 @@
       <rect>
        <x>30</x>
        <y>140</y>
-       <width>391</width>
+       <width>761</width>
        <height>41</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>2. รู้สึกไม่สบายในตา</string>
+      <string>2. มองเห็นภาพซ้อนเมื่อมองไปตามระยะทางหลังจากทำงานกับคอมพิวเตอร์</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_3">
@@ -77,8 +87,13 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>3. พบปัญหาในการอ่านหนังสือ</string>
+      <string>3. โฟกัสภาพในระยะที่ต่างกันได้อย่างลำบาก</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -86,12 +101,17 @@
       <rect>
        <x>30</x>
        <y>480</y>
-       <width>391</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>6. พบปัญหาในการดูทีวี</string>
+      <string>6. ปวดตา</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_5">
@@ -103,8 +123,13 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>4. พบปัญหาในการขับขี่รถกลางคืน</string>
+      <string>4. ระคายเคืองตา</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_6">
@@ -116,8 +141,13 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>5. พบปัญหาในการใช้งานคอมพิวเตอร์</string>
+      <string>5. ตาแห้ง</string>
      </property>
     </widget>
     <widget class="QComboBox" name="comboBox_1">
@@ -540,12 +570,364 @@
       </property>
      </item>
     </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>40</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>7.ปวดศีรษะ</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_7">
+     <property name="geometry">
+      <rect>
+       <x>750</x>
+       <y>80</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>---------</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>10</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>210</y>
+       <width>261</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>9.ดวงตาตอบสนองไวต่อแสงจ้า</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_9">
+     <property name="geometry">
+      <rect>
+       <x>750</x>
+       <y>250</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>---------</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>10</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>130</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>8.เมื่อยตา</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_8">
+     <property name="geometry">
+      <rect>
+       <x>750</x>
+       <y>170</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>---------</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>10</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>290</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>10.รู้สึกไม่สบายในตา</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_10">
+     <property name="geometry">
+      <rect>
+       <x>750</x>
+       <y>330</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>---------</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>10</string>
+      </property>
+     </item>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>430</y>
+      <x>720</x>
+      <y>440</y>
       <width>511</width>
       <height>121</height>
      </rect>
@@ -576,8 +958,8 @@
    <widget class="QPushButton" name="btnSubmitTest">
     <property name="geometry">
      <rect>
-      <x>472</x>
-      <y>570</y>
+      <x>732</x>
+      <y>580</y>
       <width>221</width>
       <height>39</height>
      </rect>
@@ -589,8 +971,8 @@
    <widget class="QPushButton" name="btnTestcancle">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>570</y>
+      <x>960</x>
+      <y>580</y>
       <width>93</width>
       <height>39</height>
      </rect>

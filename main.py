@@ -12,6 +12,7 @@ from PySide2.QtUiTools import QUiLoader
 from TestScript import TestScript
 from Countdown import Coundown_msg, countdownThread
 from Countup import Countup_msg, CountupThread
+from CountTimeOut import CounTimeOut_msg, countTimeOutThread
 from eye_detection import Eyedetec_msg, Eyedetec_Thread
 
 class MainWin(QWidget):
@@ -45,6 +46,7 @@ class MainWin(QWidget):
 
         self.Coundown_msg = Coundown_msg()
         self.Countup_msg = Countup_msg()
+        self.CounTimeOut_msg = CounTimeOut_msg()
         self.Eyedetec_msg = Eyedetec_msg()
 
 
@@ -76,6 +78,12 @@ class MainWin(QWidget):
         Countd_Thread.signel.updateCountdown.connect(self.countdown_update)
         self.threadPool.start(Countd_Thread)
 
+    def getTimeOutstart(self):
+        self.CounTimeOut_msg.CountTimeOut_ObjectStart = True
+        CountTimeOut_Thread = countTimeOutThread(self.CounTimeOut_msg)
+        CountTimeOut_Thread.signel.updateCountup.connect(self.countup_update)
+        self.threadPool.start(CountTimeOut_Thread)
+
     def Eye_start(self):
         self.Eyedetec_msg.Eyedetec_start = True
         eye_thread = Eyedetec_Thread(self.Eyedetec_msg)
@@ -96,10 +104,17 @@ class MainWin(QWidget):
         message.setWindowTitle("คำเตือน")
         message.setText("ขณะนี้คุณได้ใช้เวลาอยู่กับหน้าจอคอมพิวเตอร์นานเกินไป ")
         message.setInformativeText("กรุณาละสายตาออกห่างจากคอมพิวเตอร์เป็นเวลา 20 วินาที")
+        self.connect(self.getTimeOutstart)
+
         # c=QPushButton(message)
 
         message.exec_()
 
+    def countTimeOut_update(self):
+        self.CounTimeOut_msg.countTimeOut_time += 1
+        mins, secs = divmod(self.CounTimeOut_msg.countTimeOut_time, 60)
+        hour, mins = divmod(mins, 60)
+        z = '{:02d}:{:02d}:{:02d}'.format(hour, mins, secs)
 
     def countup_update(self):
         self.Countup_msg.countup_time += 1
@@ -153,7 +168,7 @@ class MainWin(QWidget):
 
     def OpenTestForm(self):
         test = TestScript(self)
-        test.resize(600 * 2, 800)
+        test.resize(650 * 2, 800)
         test.show()
 
     # def closeEvent(self, event ):

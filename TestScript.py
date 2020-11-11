@@ -13,6 +13,7 @@ class TestScript(QMainWindow):
         super(TestScript, self).__init__(parent)
         self.load_ui()
 
+
         self.btnSubmitTest: QPushButton = self.findChild(QPushButton,"btnSubmitTest")
         self.comboBox_1: QComboBox = self.findChild(QComboBox, "comboBox_1")
         self.comboBox_2: QComboBox = self.findChild(QComboBox, "comboBox_2")
@@ -20,6 +21,10 @@ class TestScript(QMainWindow):
         self.comboBox_4: QComboBox = self.findChild(QComboBox, "comboBox_4")
         self.comboBox_5: QComboBox = self.findChild(QComboBox, "comboBox_5")
         self.comboBox_6: QComboBox = self.findChild(QComboBox, "comboBox_6")
+        self.comboBox_7: QComboBox = self.findChild(QComboBox, "comboBox_7")
+        self.comboBox_8: QComboBox = self.findChild(QComboBox, "comboBox_8")
+        self.comboBox_9: QComboBox = self.findChild(QComboBox, "comboBox_9")
+        self.comboBox_10: QComboBox = self.findChild(QComboBox, "comboBox_10")
 
 
         self.btnSubmitTest.clicked.connect(self.radioanswer)
@@ -40,8 +45,12 @@ class TestScript(QMainWindow):
                 or self.comboBox_2.currentText() == "---------" \
                 or self.comboBox_3.currentText() == "---------" \
                 or self.comboBox_4.currentText() == "---------" \
-                or self.comboBox_5.currentText() == "---------"\
-                or self.comboBox_6.currentText() == "---------":
+                or self.comboBox_5.currentText() == "---------" \
+                or self.comboBox_6.currentText() == "---------" \
+                or self.comboBox_7.currentText() == "---------" \
+                or self.comboBox_8.currentText() == "---------" \
+                or self.comboBox_9.currentText() == "---------" \
+                or self.comboBox_10.currentText() == "---------":
             msg.setText("กรุณากรอกข้อมูลให้ครบ")
             msg.setWindowTitle("Warning")
             msg.setIcon(QMessageBox.Warning)
@@ -54,14 +63,18 @@ class TestScript(QMainWindow):
             c4 = int(self.comboBox_4.currentText())
             c5 = int(self.comboBox_5.currentText())
             c6 = int(self.comboBox_6.currentText())
-            avg1 = (c1 + c2 + c3 + c4 + c5 + c6 ) / 6
-            if avg1 >= 5.1:
+            c7 = int(self.comboBox_7.currentText())
+            c8 = int(self.comboBox_8.currentText())
+            c9 = int(self.comboBox_9.currentText())
+            c10 = int(self.comboBox_10.currentText())
+            avg1 = (c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9 + c10) / 10
+            if avg1 >= 7.5:
                 msg.setText("คุณได้คะแนน " + str(avg1) + " ตอนนี้คุณอยู่ในระดับที่มีปัญหามาก")
                 msg.setIcon(QMessageBox.Warning)
-            elif avg1 <= 5 and avg1 >= 1.1:
+            elif avg1 <= 7.4 and avg1 >= 5:
                 msg.setText("คุณได้คะแนน " + str(avg1) + " ตอนนี้คุณอยู่ในระดับที่มีปัญหาปานกลาง")
                 msg.setIcon(QMessageBox.Warning)
-            elif avg1 <= 1 and avg1 >= 0.1:
+            elif avg1 <= 4.9 and avg1 >= 2.5:
                 msg.setText("คุณได้คะแนน " + str(avg1) + " ตอนนี้คุณอยู่ในระดับที่มีปัญหาเล็กน้อย")
                 msg.setIcon(QMessageBox.Warning)
             else:
