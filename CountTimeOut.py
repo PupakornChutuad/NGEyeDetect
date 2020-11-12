@@ -6,7 +6,7 @@ from PySide2.QtCore import QRunnable, QSignalTransition, Signal, QObject
 class CounTimeOut_msg:
     def __init__(self):
         self.CountTimeOut_ObjectStart = False
-        self.countTimeOut_time = 7
+        self.countTimeOut_time = 0
 
 
 class CounTimeOutSignel(QObject) :
@@ -23,7 +23,7 @@ class countTimeOutThread(QRunnable):
         self.signel = CounTimeOutSignel()
 
     def run(self):
-        while self.msg.countTimeOut_time > 0 and self.msg.CountTimeOut_ObjectStart:
+        while self.msg.countTimeOut_time >= 0 and self.msg.CountTimeOut_ObjectStart:
             self.signel.updateCountTimeOut.emit("OK")
             time.sleep(1)
 
