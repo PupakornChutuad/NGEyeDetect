@@ -61,7 +61,8 @@ class EyedetecSignel(QObject) :
     finished = Signal(str)
     updateEyedetec = Signal(str)
     updateTotaleye = Signal(str)
-
+    updateMissing = Signal(str)
+    updateArrive = Signal(str)
 class Eyedetec_Thread(QRunnable):
 
     def __init__(self,msg : Eyedetec_msg):
@@ -86,8 +87,10 @@ class Eyedetec_Thread(QRunnable):
 
             faces = detector(gray)
             if len(faces) == 0 :
-                self.signel.updateEyedetec.emit("Missing")
+                self.signel.updateEyedetec.emit("MISSING")
+                self.signel.updateMissing.emit("OK")
             else :
+                self.signel.updateArrive.emit("OK")
                 for face in faces:
 
                     landmarks = predictor(gray, face)
@@ -99,18 +102,18 @@ class Eyedetec_Thread(QRunnable):
                     # facepocition
                     if gaze_ratio < 0.5 and gaze_ratio > 0:
                         cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
-                        self.signel.updateEyedetec.emit("Right")
+                        self.signel.updateEyedetec.emit("RIGHT")
                         totalright += 1
 
 
                     elif 0.5 < gaze_ratio < 1.2:
                         cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
-                        self.signel.updateEyedetec.emit("Center")
+                        self.signel.updateEyedetec.emit("CENTER")
                         totalcenter += 1
 
                     elif gaze_ratio > 1.2:
                         cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
-                        self.signel.updateEyedetec.emit("Left")
+                        self.signel.updateEyedetec.emit("LEFT")
                         totalleft += 1
 
 

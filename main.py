@@ -90,6 +90,10 @@ class MainWin(QWidget):
         self.Eyedetec_msg.Eyedetec_start = True
         eye_thread = Eyedetec_Thread(self.Eyedetec_msg)
         eye_thread.signel.updateEyedetec.connect(self.Eyedect_Update)
+        # eye_thread.signel.updateMissing.connect(self.stopit)
+        # eye_thread.signel.updateMissing.connect(self.stopup)
+        # eye_thread.signel.updateArrive.connect(self.getstart)
+        # eye_thread.signel.updateArrive.connect(self.getupstart)
         self.threadPool.start(eye_thread)
 
     def countdown_update(self):
