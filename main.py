@@ -3,6 +3,7 @@ import sys
 import os
 import time
 import pandas as pd
+import datetime
 
 
 from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QMessageBox
@@ -149,12 +150,12 @@ class MainWin(QWidget):
             elif position == "Left":
                 TotalLeft += 1
 
-            newrow = {'Right':TotalRight,
-                    'Center':TotalCenter,
-                    'Left':TotalLeft}
-            df=df.append(newrow ,ignore_index=True)
-
-            df.to_csv("test.csv")
+            # newrow = {'Right':TotalRight,
+            #         'Center':TotalCenter,
+            #         'Left':TotalLeft}
+            # df=df.append(newrow ,ignore_index=True)
+            #
+            # df.to_csv("test.csv")
         # else:
         #     self.Eyedetec_msg.Eyedetec_start = False
         #     self.FacePosi.setText("OUT OF TIME")

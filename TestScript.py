@@ -1,6 +1,8 @@
 # This Python file uses the following encoding: utf-8
 import sys
 import os
+import pandas as pd
+import datetime
 
 from PyQt5.QtWidgets import QMainWindow
 from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QMessageBox, QMainWindow
@@ -40,6 +42,7 @@ class TestScript(QMainWindow):
 
     def radioanswer(self):
 
+
         msg = QMessageBox()
         if self.comboBox_1.currentText() == "---------" \
                 or self.comboBox_2.currentText() == "---------" \
@@ -68,6 +71,20 @@ class TestScript(QMainWindow):
             c9 = int(self.comboBox_9.currentText())
             c10 = int(self.comboBox_10.currentText())
             avg1 = (c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9 + c10) / 10
+
+            readDataframe = pd.read_excel(r'คะแนนแบบทดสอบสุขภาพสายตา.xlsx')
+            today = pd.to_datetime("today")
+
+            newDataframe = pd.DataFrame({'วันที่': [today], 'คะแนน': [avg1]})
+            frames = [readDataframe, newDataframe]
+            result = pd.concat(frames)
+            writer = pd.ExcelWriter('คะแนนแบบทดสอบสุขภาพสายตา.xlsx', engine='xlsxwriter')
+
+            # นำข้อมูลชุดใหม่เขียนลงไฟล์และจบการทำงาน
+            result.to_excel(writer, index=False)
+            writer.save()
+
+
             if avg1 >= 7.5:
                 msg.setText("คุณได้คะแนน " + str(avg1) + " ตอนนี้คุณอยู่ในระดับที่มีปัญหามาก")
                 msg.setIcon(QMessageBox.Warning)
