@@ -124,6 +124,8 @@ class MainWin(QWidget):
         z = '{:02d}:{:02d}:{:02d}'.format(hour, mins, secs)
         self.lbCountTimeOut.setText(z)
 
+
+
     def countup_update(self):
         self.Countup_msg.countup_time += 1
         mins, secs = divmod(self.Countup_msg.countup_time, 60)
@@ -135,11 +137,6 @@ class MainWin(QWidget):
         TotalRight = 0
         TotalCenter = 0
         TotalLeft = 0
-        data = {"Right":[TotalRight],
-                "Center":[TotalCenter],
-                "Left":[TotalLeft]}
-        df=pd.DataFrame(data,columns=['Right','Center','Left'])
-
 
         self.FacePosi.setText(position)
         if self.Coundown_msg.countdown_time != 0:
@@ -150,15 +147,7 @@ class MainWin(QWidget):
             elif position == "Left":
                 TotalLeft += 1
 
-            # newrow = {'Right':TotalRight,
-            #         'Center':TotalCenter,
-            #         'Left':TotalLeft}
-            # df=df.append(newrow ,ignore_index=True)
-            #
-            # df.to_csv("test.csv")
-        # else:
-        #     self.Eyedetec_msg.Eyedetec_start = False
-        #     self.FacePosi.setText("OUT OF TIME")
+
 
 
     def stopit(self):
@@ -168,6 +157,18 @@ class MainWin(QWidget):
 
     def stopTimeOut(self):
         self.CounTimeOut_msg.CountTimeOut_ObjectStart = False
+        time.sleep(1)
+        readTimeOut = pd.read_excel(r'Time out.xlsx')
+        today = pd.to_datetime("today")
+        newDataframeTimeout = pd.DataFrame(
+            {'วันที่': [today], 'Time Out': [self.Countup_msg.countup_time.y]})
+        frames = [readTimeOut, newDataframeTimeout]
+        result = pd.concat(frames)
+        writer = pd.ExcelWriter('Time out.xlsx', engine='xlsxwriter')
+        # นำข้อมูลชุดใหม่เขียนลงไฟล์และจบการทำงาน
+        result.to_excel(writer, index=False)
+        writer.save()
+
         self.CounTimeOut_msg.countTimeOut_time=0
         self.lbCountTimeOut.setText(str("00:00:00"))
 
@@ -185,15 +186,24 @@ class MainWin(QWidget):
         test.resize(650 * 2, 800)
         test.show()
 
-    # def closeEvent(self, event ):
-    #     x= QMessageBox.question(self,"hello","กรุณาทำแบบทดสอบก่อนทำการออกจากระบบ",QMessageBox.No,QMessageBox.Yes)
-    #     if x == QMessageBox.Yes :
-    #         test= TestScript(self)
-    #         test.resize(600*2,800)
-    #         test.show()
-    #         event.ignore()
-    #     else:
-    #         event.ignore()
+    def closeEvent(self, event ):
+       x= QMessageBox.question(self,"hello","ต้องการออกจากโปรแกรมใช่หรือไม่",QMessageBox.No,QMessageBox.Yes)
+       if x == QMessageBox.Yes and self.CounTimeOut_msg.CountTimeOut_ObjectStart == False:
+           readEyeandTimeout = pd.read_excel(r'eye and timeout.xlsx')
+           today = pd.to_datetime("today")
+           newDataframe = pd.DataFrame(
+               {'วันที่': [today], 'Right': [self.Eyedect_Update.TotalRight],
+                'Center': [self.Eyedect_Update.TotalCenter], 'Left': [self.Eyedect_Update.TotalLeft],
+                'เวลาที่ใช้ทั้งหมด': [self.CounTimeOut_msg.countTimeOut_time]})
+           frames = [readEyeandTimeout, newDataframe]
+           result = pd.concat(frames)
+           writer = pd.ExcelWriter('eye and timeout.xlsx', engine='xlsxwriter')
+           # นำข้อมูลชุดใหม่เขียนลงไฟล์และจบการทำงาน
+           result.to_excel(writer, index=False)
+           writer.save()
+           event.ignore()
+       else:
+            event.ignore()
 
     def close(self):
         QCoreApplication.quit()

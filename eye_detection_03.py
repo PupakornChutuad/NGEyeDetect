@@ -86,7 +86,7 @@ def get_gaze_ratio(eye_points, facial_landmarks):
                 elif gaze_ratio > 1.2:
                     cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
                     print("left")
-        # cv2.imshow("Frame", frame)
+            cv2.imshow("Frame", frame)
 
         key = cv2.waitKey(1)
         if key == 27:
