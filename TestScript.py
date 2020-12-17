@@ -102,7 +102,7 @@ class TestScript(QMainWindow):
             # if msg == QMessageBox.Close :
             self.close()
             from main import MainWin
-            MainWin.close()
+            MainWin.close(self)
 
 
 if __name__ == "__main__":

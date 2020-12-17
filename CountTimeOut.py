@@ -27,11 +27,13 @@ class countTimeOutThread(QRunnable):
             self.signel.updateCountTimeOut.emit("OK")
             time.sleep(1)
 
-        if self.msg.countTimeOut_time == 0:
-            self.signel.timeout.emit("OK")
-            self.msg.CountTimeOut_ObjectStart = False
-        self.msg.CountTimeOut_ObjectStart=False
         self.signel.finished.emit("OK")
+
+        # if self.msg.countTimeOut_time == 0:
+        #     self.signel.timeout.emit("OK")
+        #     self.msg.CountTimeOut_ObjectStart = False
+        # self.msg.CountTimeOut_ObjectStart=False
+        # self.signel.finished.emit("OK")
         #     mins, secs = divmod(self.msg.countdown_time, 60)
         #     hour, mins = divmod(mins, 60)
         #     self.msg.countdownFunc = '{:02d}:{:02d}:{:02d}'.format(hour, mins, secs)

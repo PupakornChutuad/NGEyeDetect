@@ -10,7 +10,6 @@ from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QMessa
 from PySide2.QtCore import QFile, QThreadPool, QCoreApplication
 from PySide2.QtUiTools import QUiLoader
 
-from History import History_View
 from TestScript import TestScript
 from Countdown import Coundown_msg, countdownThread
 from Countup import Countup_msg, CountupThread
@@ -43,12 +42,10 @@ class MainWin(QWidget):
         self.btnStop.clicked.connect(self.StopDetec)
 
         self.TestForm_btn.clicked.connect(self.OpenTestForm)
-        self.btnVH.clicked.connect(self.OpenHistory)
 
         self.threadPool : QThreadPool = QThreadPool()
 
         self.TestScript = TestScript()
-        self.History = History_View()
 
         self.Coundown_msg = Coundown_msg()
         self.Countup_msg = Countup_msg()
@@ -75,6 +72,7 @@ class MainWin(QWidget):
         self.threadPool.start(Countup_Thread)
 
 
+
     def getstart(self):
         self.Coundown_msg.CountDown_ObjectStart = True
         Countd_Thread = countdownThread(self.Coundown_msg)
@@ -89,6 +87,8 @@ class MainWin(QWidget):
         CountTimeOut_Thread = countTimeOutThread(self.CounTimeOut_msg)
         CountTimeOut_Thread.signel.updateCountTimeOut.connect(self.countTimeOut_update)
         self.threadPool.start(CountTimeOut_Thread)
+
+
 
     def Eye_start(self):
         self.Eyedetec_msg.Eyedetec_start = True
@@ -121,6 +121,7 @@ class MainWin(QWidget):
         message.exec_()
 
     def countTimeOut_update(self):
+
         self.CounTimeOut_msg.countTimeOut_time += 1
         mins, secs = divmod(self.CounTimeOut_msg.countTimeOut_time, 60)
         hour, mins = divmod(mins, 60)
@@ -136,41 +137,47 @@ class MainWin(QWidget):
         y = '{:02d}:{:02d}:{:02d}'.format(hour, mins, secs)
         self.lbCountUP.setText(y)
 
-    def Eyedect_Update(self, position):
+    def Eyedect_Update(self, position ):
+        self.FacePosi.setText(position)
         TotalRight = 0
         TotalCenter = 0
         TotalLeft = 0
+        # if self.Coundown_msg.countdown_time != 0:
+        if position == "Right":
+            # self.Eyedetec_msg.CountEyeRight += 1
+            TotalRight += 1
+            print("Right",TotalRight)
 
-        self.FacePosi.setText(position)
-        if self.Coundown_msg.countdown_time != 0:
-            if position == "Right":
-                TotalRight += 1
-            elif position == "Center":
-                TotalCenter += 1
-            elif position == "Left":
-                TotalLeft += 1
+        elif position == "Center":
+            # self.Eyedetec_msg.CountEyeCenter += 1
+            TotalCenter += 1
+            print("Center",TotalCenter)
 
-
-
+        elif position == "Left":
+            # self.Eyedetec_msg.CountEyeLeft +=1
+            TotalLeft += 1
+            print("Left",TotalLeft)
 
     def stopit(self):
         self.Coundown_msg.CountDown_ObjectStart = False
-        self.Coundown_msg.countdown_time=10
+        self.Coundown_msg.countdown_time=50
         self.lbCountdowner.setText(str("00:20:00"))
+
 
     def stopTimeOut(self):
         self.CounTimeOut_msg.CountTimeOut_ObjectStart = False
-        time.sleep(1)
-        readTimeOut = pd.read_excel(r'Time out.xlsx')
-        today = pd.to_datetime("today")
-        newDataframeTimeout = pd.DataFrame(
-            {'วันที่': [today], 'Time Out': [self.Countup_msg.countup_time.y]})
-        frames = [readTimeOut, newDataframeTimeout]
-        result = pd.concat(frames)
-        writer = pd.ExcelWriter('Time out.xlsx', engine='xlsxwriter')
-        # นำข้อมูลชุดใหม่เขียนลงไฟล์และจบการทำงาน
-        result.to_excel(writer, index=False)
-        writer.save()
+        # readTimeOut = pd.read_excel('เวลาที่เกินมา.xlsx')
+        # Today = pd.to_datetime("today")
+        # newDataframeTimeout = pd.DataFrame(
+        #     {'วันที่':[Today],'Time Out': [self.CounTimeOut_msg.countTimeOut_time]}
+        # )
+        # frames = [readTimeOut, newDataframeTimeout]
+        # result = pd.concat(frames)
+        # writer = pd.ExcelWriter('เวลาที่เกินมา.xlsx', engine='xlsxwriter')
+        # result.to_excel(writer, index=False)
+        # writer.save()
+
+        time.sleep(2)
 
         self.CounTimeOut_msg.countTimeOut_time=0
         self.lbCountTimeOut.setText(str("00:00:00"))
@@ -181,7 +188,9 @@ class MainWin(QWidget):
     def StopDetec(self):
         self.Eyedetec_msg.Eyedetec_start = False
         self.Eyedetec_msg.eye_positiont = "Off"
-        self.FacePosi.setText("TAKE A BREAK")
+        self.FacePosi.setText(str("TAKE A BREAK"))
+
+
         # self.FacePosi.setText("Off")
 
     def OpenTestForm(self):
@@ -189,29 +198,31 @@ class MainWin(QWidget):
         test.resize(650 * 2, 800)
         test.show()
 
-    def OpenHistory(self):
-        his = History_View(self)
-        his.resize(250 * 2, 220)
-        his.show()
-
-    def closeEvent(self, event ):
-       x= QMessageBox.question(self,"hello","ต้องการออกจากโปรแกรมใช่หรือไม่",QMessageBox.No,QMessageBox.Yes)
-       if x == QMessageBox.Yes and self.CounTimeOut_msg.CountTimeOut_ObjectStart == False:
-           readEyeandTimeout = pd.read_excel(r'eye and timeout.xlsx')
-           today = pd.to_datetime("today")
-           newDataframe = pd.DataFrame(
-               {'วันที่': [today], 'Right': [self.Eyedect_Update.TotalRight],
-                'Center': [self.Eyedect_Update.TotalCenter], 'Left': [self.Eyedect_Update.TotalLeft],
-                'เวลาที่ใช้ทั้งหมด': [self.CounTimeOut_msg.countTimeOut_time]})
-           frames = [readEyeandTimeout, newDataframe]
-           result = pd.concat(frames)
-           writer = pd.ExcelWriter('eye and timeout.xlsx', engine='xlsxwriter')
-           # นำข้อมูลชุดใหม่เขียนลงไฟล์และจบการทำงาน
-           result.to_excel(writer, index=False)
-           writer.save()
-           event.ignore()
-       else:
-            event.ignore()
+    # def closeEvent(self, event ):
+    #    x= QMessageBox.question(self,"hello","ต้องการออกจากโปรแกรมใช่หรือไม่",QMessageBox.No,QMessageBox.Yes)
+    #    if x == QMessageBox.Yes and self.CounTimeOut_msg.CountTimeOut_ObjectStart == False:
+    #        if self.Countup_msg.countup_time > 0 :
+    #            readEyeandTimeout = pd.read_excel(r'เวลาทั้งหมดและตาในแต่ละครั้ง.xlsx')
+    #            today = pd.to_datetime("today")
+    #            newDataframe = pd.DataFrame(
+    #                 {'วันที่': [today],
+    #                 'เวลาที่ใช้ทั้งหมด': [self.Countup_msg.countup_time],
+    #                 'มองทางขวา':[self.Eyedetec_msg.CountEyeRight],
+    #                 'มองตรงกลาง':[self.Eyedetec_msg.CountEyeCenter],
+    #                 'มองทางซ้าย':[self.Eyedetec_msg.CountEyeLeft]})
+    #            frames = [readEyeandTimeout, newDataframe]
+    #            result = pd.concat(frames)
+    #            writer = pd.ExcelWriter('เวลาทั้งหมดและตาในแต่ละครั้ง.xlsx', engine='xlsxwriter')
+    #             # นำข้อมูลชุดใหม่เขียนลงไฟล์และจบการทำงาน
+    #            result.to_excel(writer, index=False)
+    #            writer.save()
+    #            time.sleep(1)
+    #
+    #        event.ignore()
+    #        QCoreApplication.quit()
+    #    else:
+    #        time.sleep(1)
+    #        event.ignore()
 
     def close(self):
         QCoreApplication.quit()
