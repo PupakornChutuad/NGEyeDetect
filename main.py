@@ -10,6 +10,7 @@ from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QMessa
 from PySide2.QtCore import QFile, QThreadPool, QCoreApplication
 from PySide2.QtUiTools import QUiLoader
 
+from History import History_View
 from TestScript import TestScript
 from Countdown import Coundown_msg, countdownThread
 from Countup import Countup_msg, CountupThread
@@ -42,10 +43,12 @@ class MainWin(QWidget):
         self.btnStop.clicked.connect(self.StopDetec)
 
         self.TestForm_btn.clicked.connect(self.OpenTestForm)
+        self.btnVH.clicked.connect(self.OpenHistory)
 
         self.threadPool : QThreadPool = QThreadPool()
 
         self.TestScript = TestScript()
+        self.History = History_View()
 
         self.Coundown_msg = Coundown_msg()
         self.Countup_msg = Countup_msg()
@@ -185,6 +188,11 @@ class MainWin(QWidget):
         test = TestScript(self)
         test.resize(650 * 2, 800)
         test.show()
+
+    def OpenHistory(self):
+        his = History_View(self)
+        his.resize(250 * 2, 220)
+        his.show()
 
     def closeEvent(self, event ):
        x= QMessageBox.question(self,"hello","ต้องการออกจากโปรแกรมใช่หรือไม่",QMessageBox.No,QMessageBox.Yes)

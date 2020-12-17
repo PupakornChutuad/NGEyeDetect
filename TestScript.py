@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import datetime
 
-from PyQt5.QtWidgets import QMainWindow
+#from PyQt5.QtWidgets import QMainWindow
 from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QMessageBox, QMainWindow
 from PySide2.QtCore import QFile
 from PySide2.QtUiTools import QUiLoader
