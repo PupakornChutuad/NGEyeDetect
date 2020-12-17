@@ -11,6 +11,10 @@ class Eyedetec_msg:
     def __init__(self):
         self.Eyedetec_start = False
         self.eye_position = "Off"
+        self.eye_right = 0
+        self.eye_center = 0
+        self.eye_left = 0
+
 
 
 
@@ -103,18 +107,22 @@ class Eyedetec_Thread(QRunnable):
                     if gaze_ratio < 0.5 and gaze_ratio > 0:
                         cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
                         self.signel.updateEyedetec.emit("RIGHT")
-                        totalright += 1
+                        # totalright += 1
+                        # print("Right" ,totalright)
 
 
                     elif 0.5 < gaze_ratio < 1.2:
                         cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
                         self.signel.updateEyedetec.emit("CENTER")
-                        totalcenter += 1
+                        # totalcenter += 1
+                        # print("Center", totalcenter)
 
                     elif gaze_ratio > 1.2:
                         cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
                         self.signel.updateEyedetec.emit("LEFT")
-                        totalleft += 1
+                        # totalleft += 1
+                        # print("Left",totalleft)
+
 
 
 
